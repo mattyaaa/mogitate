@@ -3,7 +3,7 @@
 @section('content')
     <!-- 商品一覧へのリンクと選択した商品名の表示 -->
     <div>
-        <a href="/products">商品一覧</a> ＞ {{ $product->name }}
+        <a href="/products">商品一覧</a> > {{ $product->name }}
     </div>
 
     <form action="/products/{{ $product->id }}/update" method="POST" enctype="multipart/form-data">
