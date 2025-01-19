@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+
 @section('content')
     <!-- 商品登録フォーム -->
     <h2>商品登録</h2>

@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+
 @section('content')
     <h1>"{{ $query }}"の商品一覧</h1>
 

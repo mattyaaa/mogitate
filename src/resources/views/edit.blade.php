@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+
 @section('content')
     <!-- 商品一覧へのリンクと選択した商品名の表示 -->
     <div>

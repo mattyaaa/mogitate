@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+
 @section('content')
     <h1>商品一覧</h1>
 
