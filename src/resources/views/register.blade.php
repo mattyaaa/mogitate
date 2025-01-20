@@ -7,7 +7,7 @@
     <!-- 商品登録フォーム -->
     <h2>商品登録</h2>
 
-    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="/products" method="POST" enctype="multipart/form-data">
         @csrf
 
         <!-- 商品名 -->
@@ -40,12 +40,22 @@
         <!-- 季節 -->
         <div>
             <label for="season">季節 <span>必須</span> <span>複数選択可</span></label>
-            <select id="season" name="season[]" multiple>
-                <option value="春" {{ in_array('春', old('season', [])) ? 'selected' : '' }}>春</option>
-                <option value="夏" {{ in_array('夏', old('season', [])) ? 'selected' : '' }}>夏</option>
-                <option value="秋" {{ in_array('秋', old('season', [])) ? 'selected' : '' }}>秋</option>
-                <option value="冬" {{ in_array('冬', old('season', [])) ? 'selected' : '' }}>冬</option>
-            </select>
+            <div>
+                <input type="checkbox" id="spring" name="season[]" value="春" {{ in_array('春', old('season', [])) ? 'checked' : '' }}>
+                <label for="spring">春</label>
+            </div>
+            <div>
+                <input type="checkbox" id="summer" name="season[]" value="夏" {{ in_array('夏', old('season', [])) ? 'checked' : '' }}>
+                <label for="summer">夏</label>
+            </div>
+            <div>
+                <input type="checkbox" id="autumn" name="season[]" value="秋" {{ in_array('秋', old('season', [])) ? 'checked' : '' }}>
+                <label for="autumn">秋</label>
+            </div>
+            <div>
+                <input type="checkbox" id="winter" name="season[]" value="冬" {{ in_array('冬', old('season', [])) ? 'checked' : '' }}>
+                <label for="winter">冬</label>
+            </div>
             @error('season')
                 <p>{{ $message }}</p>
             @enderror
