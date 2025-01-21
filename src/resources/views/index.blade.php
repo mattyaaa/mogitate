@@ -2,12 +2,13 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+@endsection
 
 @section('content')
     <h1>商品一覧</h1>
 
     <!-- 検索フォーム -->
-    <form action="/products/search" method="GET">
+    <form action="/products/search" method="GET" class="search-form">
         <input type="text" name="query" placeholder="商品名で検索" value="{{ request('query') }}">
         <button type="submit">検索</button>
     </form>
@@ -44,8 +45,10 @@
     </div>
 
     <!-- ページネーション -->
-    {{ $products->appends(request()->input())->links() }}
+    <div class="pagination-container">
+        {{ $products->appends(request()->input())->links() }}
+    </div>
 
     <!-- 商品登録ページへのリンク -->
-    <a href="/products/register">+商品を追加</a>
+    <a href="/products/register" class="register-link">+商品を追加</a>
 @endsection
