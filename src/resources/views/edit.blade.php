@@ -16,7 +16,7 @@
         <div>
             @if ($product->image)
                 <div>
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="商品画像" style="max-width: 200px;">
+                    <img src="{{ asset('storage/images/' . $product->image) }}" alt="商品画像" style="max-width: 200px;">
                 </div>
             @endif
             <div>
@@ -70,7 +70,7 @@
 
     <a href="/products">戻る</a>
 
-    <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
+    <form action="{{ url('/products/' . $product->id . '/delete') }}" method="POST" style="display:inline;">
         @csrf
         @method('DELETE')
         <button type="submit" onclick="return confirm('本当に削除しますか？')">ゴミ箱ボタン</button>

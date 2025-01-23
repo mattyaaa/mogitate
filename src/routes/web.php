@@ -24,7 +24,7 @@ Route::get('/products/register', [ProductController::class, 'create']);
 Route::post('/products', [ProductController::class, 'store']);
 
 // 商品詳細表示（編集フォーム）
-Route::get('/products/{productId}/edit', [ProductController::class, 'edit']);
+Route::get('/products/{productId}', [ProductController::class, 'edit']);
 
 // 商品更新処理
 Route::post('/products/{productId}/update', [ProductController::class, 'update']);
