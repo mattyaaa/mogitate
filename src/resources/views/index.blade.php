@@ -11,6 +11,7 @@
 
     <!-- 検索フォーム -->
     <form action="/products/search" method="GET" class="search-form">
+    @csrf
         <input type="text" name="query" placeholder="商品名で検索" value="{{ request('query') }}">
         <button type="submit">検索</button>
     </form>

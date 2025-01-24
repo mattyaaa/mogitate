@@ -12,19 +12,43 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     // 商品一覧表示
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(6);
-        return view('index', compact('products'));
+        $sort = $request->input('sort');
+
+        $products = Product::when($sort, function($queryBuilder) use ($sort) {
+            if ($sort == 'high') {
+                return $queryBuilder->orderBy('price', 'desc');
+            } elseif ($sort == 'low') {
+                return $queryBuilder->orderBy('price', 'asc');
+            }
+        })->paginate(6);
+
+        return view('index', compact('products', 'sort'));
     }
 
     // 商品検索結果表示
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $products = Product::where('name', 'like', "%{$query}%")->paginate(6);
-        return view('search', compact('products'));
+        $sort = $request->input('sort');
+
+        $products = Product::when($query, function($queryBuilder) use ($query) {
+            return $queryBuilder->where('name', 'like', '%' . $query . '%');
+        })
+        ->when($sort, function($queryBuilder) use ($sort) {
+            if ($sort == 'high') {
+                return $queryBuilder->orderBy('price', 'desc');
+            } elseif ($sort == 'low') {
+                return $queryBuilder->orderBy('price', 'asc');
+            }
+        })
+        ->paginate(6);
+
+        return view('search', compact('products', 'query', 'sort'));
     }
+
+
 
     // 商品登録画面表示
     public function create()
