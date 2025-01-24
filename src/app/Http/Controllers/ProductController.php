@@ -7,6 +7,7 @@ use App\Models\Season;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -43,7 +44,10 @@ class ProductController extends Controller
         }
 
         $product = Product::create($validated);
-        $product->seasons()->attach($request->season);
+
+        // シーズンのIDを取得して関連付け
+        $seasonIds = Season::whereIn('name', $request->season)->pluck('id');
+        $product->seasons()->attach($seasonIds);
 
         return redirect('/products');
     }
@@ -59,16 +63,32 @@ class ProductController extends Controller
     // 商品更新処理
     public function update(UpdateProductRequest $request, $productId)
     {
-        $validated = $request->validated();
         $product = Product::findOrFail($productId);
 
+        // バリデーション済みのデータを取得
+        $validated = $request->validated();
+
+        // 画像の更新処理
         if ($request->hasFile('image')) {
+            // 古い画像を削除（必要に応じて）
+            if ($product->image) {
+                Storage::delete('public/images/' . $product->image);
+            }
+
+            // 新しい画像を保存
             $path = $request->file('image')->store('public/images');
             $validated['image'] = basename($path);
+        } else {
+            // 画像がアップロードされていない場合、既存の画像を使用
+            $validated['image'] = $product->image;
         }
 
+        // 商品情報の更新
         $product->update($validated);
-        $product->seasons()->sync($request->season);
+
+        // シーズンのIDを取得して関連付け
+        $seasonIds = Season::whereIn('name', $validated['season'])->pluck('id');
+        $product->seasons()->sync($seasonIds);
 
         return redirect('/products');
     }

@@ -1,0 +1,14 @@
+.error-message {
+    color: red;
+}
+
+.file-upload-button {
+    cursor: pointer;
+}
+
+#image-preview {
+    max-width: 200px;
+    height: auto;
+    display: none;
+    margin-top: 10px;
+}

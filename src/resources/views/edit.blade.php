@@ -2,6 +2,7 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+@endsection
 
 @section('content')
     <!-- 商品一覧へのリンクと選択した商品名の表示 -->
@@ -14,17 +15,14 @@
 
         <!-- 商品画像 -->
         <div>
-            @if ($product->image)
-                <div>
-                    <img src="{{ asset('storage/images/' . $product->image) }}" alt="商品画像" style="max-width: 200px;">
-                </div>
-            @endif
             <div>
-                <label for="image" class="file-upload-button">ファイルを選択</label>
-                <input type="file" id="image" name="image" style="display: none;">
+                <img id="image-preview" src="#" alt="選択した画像" style="max-width: 200px; display: none;">
+            </div>
+            <div class="file-upload-button">
+                <input type="file" id="image" name="image" >
             </div>
             @error('image')
-                <p>{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
@@ -32,7 +30,7 @@
             <label for="name">商品名</label>
             <input type="text" id="name" name="name" value="{{ old('name', $product->name) }}" placeholder="商品名を入力">
             @error('name')
-                <p>{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
@@ -40,20 +38,30 @@
             <label for="price">値段</label>
             <input type="text" id="price" name="price" value="{{ old('price', $product->price) }}" placeholder="値段を入力">
             @error('price')
-                <p>{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
         <div>
             <label for="season">季節</label>
-            <select id="season" name="season[]" multiple>
-                <option value="春" {{ in_array('春', old('season', explode(',', $product->season))) ? 'selected' : '' }}>春</option>
-                <option value="夏" {{ in_array('夏', old('season', explode(',', $product->season))) ? 'selected' : '' }}>夏</option>
-                <option value="秋" {{ in_array('秋', old('season', explode(',', $product->season))) ? 'selected' : '' }}>秋</option>
-                <option value="冬" {{ in_array('冬', old('season', explode(',', $product->season))) ? 'selected' : '' }}>冬</option>
-            </select>
+            <div>
+            <input type="checkbox" id="spring" name="season[]" value="春" {{ in_array('春', old('season', explode(',', $product->season))) ? 'checked' : '' }}>
+            <label for="spring">春</label>
+        </div>
+        <div>
+            <input type="checkbox" id="summer" name="season[]" value="夏" {{ in_array('夏', old('season', explode(',', $product->season))) ? 'checked' : '' }}>
+            <label for="summer">夏</label>
+        </div>
+        <div>
+            <input type="checkbox" id="autumn" name="season[]" value="秋" {{ in_array('秋', old('season', explode(',', $product->season))) ? 'checked' : '' }}>
+            <label for="autumn">秋</label>
+        </div>
+        <div>
+            <input type="checkbox" id="winter" name="season[]" value="冬" {{ in_array('冬', old('season', explode(',', $product->season))) ? 'checked' : '' }}>
+            <label for="winter">冬</label>
+        </div>
             @error('season')
-                <p>{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
@@ -61,7 +69,7 @@
             <label for="description">商品説明</label>
             <textarea id="description" name="description" placeholder="商品の説明を入力">{{ old('description', $product->description) }}</textarea>
             @error('description')
-                <p>{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
@@ -77,8 +85,18 @@
     </form>
 
     <script>
-        document.querySelector('.file-upload-button').addEventListener('click', function() {
-            document.querySelector('#image').click();
+        // 画像プレビュー機能
+        document.getElementById('image').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('image-preview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
         });
     </script>
 @endsection

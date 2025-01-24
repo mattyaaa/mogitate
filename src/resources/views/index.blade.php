@@ -6,6 +6,8 @@
 
 @section('content')
     <h1>商品一覧</h1>
+    <!-- 商品登録ページへのリンク -->
+    <a href="/products/register" class="register-link">+商品を追加</a>
 
     <!-- 検索フォーム -->
     <form action="/products/search" method="GET" class="search-form">
@@ -36,9 +38,12 @@
     <div class="product-list">
         @foreach ($products as $product)
             <div class="product-card">
+                @if ($product->image)
+                    <img src="{{ asset('storage/images/' . $product->image) }}" alt="商品画像">
+                @endif
                 <a href="{{ url('/products', $product->id) }}">
                     <h2>{{ $product->name }}</h2>
-                    <p>¥{{ $product->price }}</p>
+                    <p>¥{{ number_format($product->price) }}</p>
                 </a>
             </div>
         @endforeach
@@ -49,6 +54,4 @@
         {{ $products->appends(request()->input())->links() }}
     </div>
 
-    <!-- 商品登録ページへのリンク -->
-    <a href="/products/register" class="register-link">+商品を追加</a>
 @endsection

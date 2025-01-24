@@ -15,7 +15,7 @@
             <label for="name">商品名 <span>必須</span></label>
             <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="商品名を入力">
             @error('name')
-                <p>{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
@@ -24,16 +24,17 @@
             <label for="price">値段 <span>必須</span></label>
             <input type="text" id="price" name="price" value="{{ old('price') }}" placeholder="値段を入力">
             @error('price')
-                <p>{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
         <!-- 商品画像 -->
         <div>
+            <img id="image-preview" src="#" alt="選択した画像のプレビュー">
             <label for="image" class="file-upload-button">ファイルを選択 <span>必須</span></label>
             <input type="file" id="image" name="image">
             @error('image')
-                <p>{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
@@ -57,7 +58,7 @@
                 <label for="winter">冬</label>
             </div>
             @error('season')
-                <p>{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
@@ -66,7 +67,7 @@
             <label for="description">商品説明 <span>必須</span></label>
             <textarea id="description" name="description" placeholder="商品の説明を入力">{{ old('description') }}</textarea>
             @error('description')
-                <p>{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
@@ -80,6 +81,19 @@
     <script>
         document.querySelector('.file-upload-button').addEventListener('click', function() {
             document.querySelector('#image').click();
+        });
+
+        document.getElementById('image').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('image-preview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
         });
     </script>
 @endsection
