@@ -43,8 +43,8 @@
                 @if ($product->image)
                     <img src="{{ asset('storage/images/' . $product->image) }}" alt="商品画像" class="product-image">
                 @endif
-                <a href="{{ url('/products', $product->id) }}">
-                    <h2 class="product-name" class="product-link">{{ $product->name }}</h2>
+                <a href="{{ url('/products', $product->id) }}" class="product-link">
+                    <h2 class="product-name" >{{ $product->name }}</h2>
                     <p class="product-price">¥{{ number_format($product->price) }}</p>
                 </a>
             </div>
