@@ -4,7 +4,7 @@
 ### Dockerビルド
 1. リポジトリをクローンします
 ```
-git clone git@github.com:mattyaaa/test-contact-form.git
+git clone git@github.com:mattyaaa/mogitate.git
 ```
 
 2. DockerDesktopアプリを立ち上げます。
