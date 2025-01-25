@@ -18,6 +18,7 @@
 
     <!-- 並び替え機能 -->
     <form action="/products" method="GET" style="margin-top: 10px;">
+    @csrf
         <input type="hidden" name="query" value="{{ request('query') }}">
         <h2>価格順で表示</h2>
         <select name="sort" onchange="this.form.submit()">

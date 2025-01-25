@@ -16,13 +16,7 @@ class ProductController extends Controller
     {
         $sort = $request->input('sort');
 
-        $products = Product::when($sort, function($queryBuilder) use ($sort) {
-            if ($sort == 'high') {
-                return $queryBuilder->orderBy('price', 'desc');
-            } elseif ($sort == 'low') {
-                return $queryBuilder->orderBy('price', 'asc');
-            }
-        })->paginate(6);
+        $products = Product::sortByPrice($sort)->paginate(6);
 
         return view('index', compact('products', 'sort'));
     }
@@ -33,17 +27,7 @@ class ProductController extends Controller
         $query = $request->input('query');
         $sort = $request->input('sort');
 
-        $products = Product::when($query, function($queryBuilder) use ($query) {
-            return $queryBuilder->where('name', 'like', '%' . $query . '%');
-        })
-        ->when($sort, function($queryBuilder) use ($sort) {
-            if ($sort == 'high') {
-                return $queryBuilder->orderBy('price', 'desc');
-            } elseif ($sort == 'low') {
-                return $queryBuilder->orderBy('price', 'asc');
-            }
-        })
-        ->paginate(6);
+        $products = Product::search($query)->sortByPrice($sort)->paginate(6);
 
         return view('search', compact('products', 'query', 'sort'));
     }
