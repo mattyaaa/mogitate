@@ -1,2 +1,5 @@
 docker/mysql/data/*
-!.gitkeep
+!docker/mysql/data/.gitkeep
+/storage/*
+!/storage/app/public
+!/storage/app/public/images
