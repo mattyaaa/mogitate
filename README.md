@@ -68,6 +68,7 @@ php artisan db:seed
 
 ## ER図
 以下にER図を示します。ER図はデータベースの設計図のようなものです。
+![ER図](er.dio)
 
 
 ## URL
