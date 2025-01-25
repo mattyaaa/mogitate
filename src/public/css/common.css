@@ -1,0 +1,11 @@
+.header__logo{
+    color: rgba(245, 200, 0, 1);;
+    font-family: jsMath-cmti10;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 32.73px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration: none;
+}

@@ -1,0 +1,16 @@
+.product-name,
+.product-price {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 29.05px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration: none;
+    color: rgba(75, 75, 75, 1);
+}
+
+.product-image {
+    width: 350px;
+    height: 250px;
+}
