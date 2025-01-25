@@ -1,3 +1,6 @@
-*
-!public/
-!.gitignore
+/storage/*
+
+# Except the app/public directory and its images subdirectory
+!/storage/app/public
+!/storage/app/public/images
+!/storage/app/public/images/*
